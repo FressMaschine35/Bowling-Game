@@ -18,6 +18,7 @@ public class Frame {
     public Frame(int frameNummer) {
         this.frameNummer = frameNummer;
         this.wuerfe = new ArrayList<>();
+        this.bonusStatus = BonusStatus.KEIN_BONUS;
     }
 
     public int getFrameNummer() {

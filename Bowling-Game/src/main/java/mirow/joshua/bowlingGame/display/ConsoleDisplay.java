@@ -75,31 +75,47 @@ public class ConsoleDisplay {
     private void zeigeScores(Spiel spiel) {
         System.out.print("|");
         int gesamt = 0;
+
         for (int i = 0; i < 9; i++) {
             if (i < spiel.getFrames().size()) {
                 Frame frame = spiel.getFrames().get(i);
-                if (frame.getBonusStatus() == BonusStatus.KEIN_BONUS) {
+                boolean hatOffenenBonus = hatVorherigerFrameOffenenBonus(spiel, i);
+
+                if (!hatOffenenBonus
+                        && frame.getBonusStatus() == BonusStatus.KEIN_BONUS
+                        && frame.isComplete()) {  // Neu – nur complete Frames anzeigen
                     gesamt += frame.getScore();
                     System.out.printf("  %-7d |", gesamt);
                 } else {
                     System.out.print("    -     |");
                 }
             } else {
-                System.out.print(LEERER_FRAME + "|");
+                System.out.print("          |");
             }
         }
+
         if (spiel.getFrames().size() >= 10) {
             Frame frame = spiel.getFrames().get(9);
-            if (frame.isComplete()) {
+            boolean hatOffenenBonus = hatVorherigerFrameOffenenBonus(spiel, 9);
+            if (!hatOffenenBonus && frame.isComplete()) {
                 gesamt += frame.getScore();
                 System.out.printf("  %-8d |", gesamt);
             } else {
                 System.out.print("     -     |");
             }
         } else {
-            System.out.print(LEERER_ZEHNTER_FRAME + "|");
+            System.out.print("           |");
         }
         System.out.println();
+    }
+
+    private boolean hatVorherigerFrameOffenenBonus(Spiel spiel, int bisIndex) {
+        for (int i = 0; i < bisIndex; i++) {
+            if (spiel.getFrames().get(i).getBonusStatus() != BonusStatus.KEIN_BONUS) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

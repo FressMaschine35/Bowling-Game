@@ -130,15 +130,16 @@ public class ScoringServiceImpl implements ScoringService {
      */
     private void aktualisiereOffeneBoni(Spiel spiel, Wurf neuerWurf) {
         for (Frame frame : spiel.getFrames()) {
-            if (frame.getBonusStatus() == BonusStatus.STRIKE_BONUS_1) {
-                frame.setScore(frame.getScore() + neuerWurf.pins());
-                frame.setBonusStatus(BonusStatus.STRIKE_BONUS_2);
-            } else if (frame.getBonusStatus() == BonusStatus.STRIKE_BONUS_2) {
-                frame.setScore(frame.getScore() + neuerWurf.pins());
-                frame.setBonusStatus(BonusStatus.KEIN_BONUS);
-            } else if (frame.getBonusStatus() == BonusStatus.SPARE_BONUS) {
-                frame.setScore(frame.getScore() + neuerWurf.pins());
-                frame.setBonusStatus(BonusStatus.KEIN_BONUS);
+            switch (frame.getBonusStatus()) {
+                case STRIKE_BONUS_1 -> {
+                    frame.setScore(frame.getScore() + neuerWurf.pins());
+                    frame.setBonusStatus(BonusStatus.STRIKE_BONUS_2);
+                }
+                case STRIKE_BONUS_2, SPARE_BONUS -> {
+                    frame.setScore(frame.getScore() + neuerWurf.pins());
+                    frame.setBonusStatus(BonusStatus.KEIN_BONUS);
+                }
+                default -> { /* Kein Bonus - nichts zu tun */ }
             }
         }
     }
