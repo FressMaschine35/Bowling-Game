@@ -27,10 +27,27 @@ Wurf und nicht erst am Ende des Spiels.
 
 ## Planung
 ### Architektur
+Modulith Ansatz – bewusst gewählt weil:
+- Kleines Projekt, kein Overhead durch Microservices
+- Module klar getrennt – Input, Game, Scoring, Display
+
+#### Warum Modulith?
+Bowling Center bieten oft verschiedene Spielvarianten an.
+Der Modulith Ansatz ermöglicht es einzelne Module
+unabhängig zu erweitern oder auszutauschen ohne
+andere Module zu beeinflussen.
+
+In Zukunft können einzelne Module bei Bedarf
+als eigenständige Services ausgelagert werden.
+
+### Bewusst weggelassen
+
 
 
 ### Zeitplanung
-[folgt]
+- 1 Stunde Planung
+- 2 Stunden Implementierung
+- 1 Stunde Testing und Dokumentation
 
 ### Datenstruktur
 [folgt]
