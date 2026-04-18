@@ -6,8 +6,8 @@ public class ZehnterFrame extends Frame{
 
     private Wurf bonusWurf;
 
-    public ZehnterFrame(int frameNummer, List<Wurf> wuerfe, int score, boolean isSpare, boolean isStrike, boolean isComplete, Wurf bonusWurf) {
-        super(frameNummer, wuerfe, score, isSpare, isStrike, isComplete);
+    public ZehnterFrame() {
+        super(10);
         this.bonusWurf = bonusWurf;
     }
 

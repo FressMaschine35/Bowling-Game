@@ -12,7 +12,7 @@ public class Spiel {
 
     public Spiel() {
         this.frames = new ArrayList<Frame>();
-        this.aktuellerFrame = 0;
+        this.aktuellerFrame = 1;
         this.gesamtScore = 0;
     }
 

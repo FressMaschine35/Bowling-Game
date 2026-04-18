@@ -1,5 +1,8 @@
 package mirow.joshua.bowlingGame.game;
 
+import mirow.joshua.bowlingGame.scoring.BonusStatus;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Frame {
@@ -10,10 +13,11 @@ public class Frame {
     private boolean isSpare;
     private boolean isStrike;
     private boolean isComplete;
+    private BonusStatus bonusStatus;
 
-    public Frame(int frameNummer, List<Wurf> wuerfe, int score, boolean isSpare, boolean isStrike, boolean isComplete) {
+    public Frame(int frameNummer) {
         this.frameNummer = frameNummer;
-        this.wuerfe = wuerfe;
+        this.wuerfe = new ArrayList<>();
         this.score = score;
         this.isSpare = isSpare;
         this.isStrike = isStrike;
@@ -66,5 +70,13 @@ public class Frame {
 
     public void setComplete(boolean complete) {
         isComplete = complete;
+    }
+
+    public BonusStatus getBonusStatus() {
+        return bonusStatus;
+    }
+
+    public void setBonusStatus(BonusStatus bonusStatus) {
+        this.bonusStatus = bonusStatus;
     }
 }
