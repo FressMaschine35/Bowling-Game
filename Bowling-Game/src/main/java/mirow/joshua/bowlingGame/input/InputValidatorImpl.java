@@ -13,11 +13,7 @@ public class InputValidatorImpl implements InputValidator {
     private static final int MAX_PINS = 10;
 
     /**
-     * Validiert die Eingabe des Benutzers.
-     *
-     * @param eingabe        die Roheingabe des Benutzers
-     * @param aktuellerFrame der aktuelle Frame – wird für die Summenprüfung benötigt
-     * @return {@link ValidiereErgebnis} mit Status und optionaler Fehlermeldung
+     * {@inheritDoc}
      */
     @Override
     public ValidiereErgebnis validiereEingabe(String eingabe, Frame aktuellerFrame) {

@@ -99,6 +99,7 @@ Monolith – bewusst gewählt weil:
 - Mehrere Spieler
 - Frontend – Angular wäre der nächste Schritt
 - REST API – Input Paket kann dafür umgebaut werden
+- Keine einzelnen Branches für die einzelnen Implementierungen
 
 ## Nächste Schritte (Theoretisch)
 - REST API hinzufügen
