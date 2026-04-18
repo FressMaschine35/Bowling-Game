@@ -40,30 +40,34 @@ andere Module zu beeinflussen.
 In Zukunft können einzelne Module bei Bedarf
 als eigenständige Services ausgelagert werden.
 
-### Bewusst weggelassen
-
-
-
-### Zeitplanung
+### Zeitplanung (Soll)
 - 1 Stunde Planung
 - 2 Stunden Implementierung
 - 1 Stunde Testing und Dokumentation
 
-### Datenstruktur
-[folgt]
-
 ## Priorisierung
 ### Höher priorisiert
-[folgt]
+- Korrekte Scoring Logik inkl. Strike und Spare Bonus
+- Live Berechnung nach jedem Wurf
+- Eingabevalidierung mit klaren Fehlermeldungen
+- Testabdeckung – Scoring, Validierung und Ausgabe
+- Saubere Modulstruktur für spätere Erweiterbarkeit
 
 ### Bewusst weggelassen
-[folgt]
+- Persistenz – Spielstand wird nur im Speicher gehalten
+  In Zukunft könnte PostgreSQL oder MongoDB genutzt werden
+- Mehrere Spieler
+- Frontend – Angular wäre der nächste Schritt
+- REST API – Input Modul kann dafür umgebaut werden
 
-## Nächste Schritte
-[folgt]
+## Nächste Schritte (Theoretisch)
+- REST API im Input Modul hinzufügen
+- Angular Frontend anbinden
+- Mehrere Spieler unterstützen
+- Neue Spielmodi hinzufügen (Bis jetzt nur das StandardSpiel drinnen)
 
 ## Verwendete Tools
-[folgt]
-
-## How to Run
-[folgt]
+- IntelliJ IDEA
+- Spring Boot
+- JUnit 5 + AssertJ
+- Claude AI – für Sparring und Code Review
