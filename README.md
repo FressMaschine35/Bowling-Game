@@ -91,6 +91,7 @@ Monolith – bewusst gewählt weil:
 - Eingabevalidierung mit klaren Fehlermeldungen
 - Testabdeckung – Scoring, Validierung und Ausgabe
 - Saubere Struktur für spätere Erweiterbarkeit
+- SonarQube Warnungen gering wie möglich (Sinnvoll)
 
 ### Bewusst weggelassen
 - Persistenz – Spielstand wird nur im Speicher gehalten.
@@ -109,4 +110,4 @@ Monolith – bewusst gewählt weil:
 - IntelliJ IDEA
 - Spring Boot
 - JUnit 5 + AssertJ
-- Claude AI – für Sparring und Code Review
+- Claude AI – für Sparring 
