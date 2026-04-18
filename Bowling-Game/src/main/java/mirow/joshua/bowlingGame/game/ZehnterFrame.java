@@ -1,6 +1,5 @@
 package mirow.joshua.bowlingGame.game;
 
-import java.util.List;
 
 public class ZehnterFrame extends Frame{
 
@@ -8,7 +7,6 @@ public class ZehnterFrame extends Frame{
 
     public ZehnterFrame() {
         super(10);
-        this.bonusWurf = bonusWurf;
     }
 
     public Wurf getBonusWurf() {

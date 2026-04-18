@@ -18,10 +18,6 @@ public class Frame {
     public Frame(int frameNummer) {
         this.frameNummer = frameNummer;
         this.wuerfe = new ArrayList<>();
-        this.score = score;
-        this.isSpare = isSpare;
-        this.isStrike = isStrike;
-        this.isComplete = isComplete;
     }
 
     public int getFrameNummer() {

@@ -1,6 +1,5 @@
 package mirow.joshua.bowlingGame.display;
 
-
 import mirow.joshua.bowlingGame.game.Frame;
 import mirow.joshua.bowlingGame.game.Spiel;
 import mirow.joshua.bowlingGame.game.Wurf;
@@ -9,12 +8,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-
 class ConsoleDisplayTest {
+
+    private static final String FRAME_1 = "Frame 1";
+    private static final String FRAME_10 = "Frame 10";
 
     private ConsoleDisplay consoleDisplay;
     private ByteArrayOutputStream ausgabe;
@@ -45,19 +48,28 @@ class ConsoleDisplayTest {
 
         // Then
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ausgabeText).contains("Frame 1");
-        softly.assertThat(ausgabeText).contains("Frame 10");
+        softly.assertThat(ausgabeText).contains(FRAME_1);
+        softly.assertThat(ausgabeText).contains(FRAME_10);
         softly.assertAll();
     }
 
-    @Test
-    @DisplayName("Strike wird als X angezeigt")
-    void strike_wird_als_x_angezeigt() {
+    @ParameterizedTest(name = "Wurf mit {0} Pins wird als {1} angezeigt")
+    @DisplayName("Strike und Spare werden korrekt dargestellt")
+    @CsvSource({
+        "10, true, false, X",
+        "7, false, true, /"
+    })
+    void wurf_wird_korrekt_dargestellt(int ersterWurf, boolean isStrike,
+                                        boolean isSpare, String erwarteteAnzeige) {
         // Given
         Spiel spiel = new Spiel();
         Frame frame = new Frame(1);
-        frame.getWuerfe().add(new Wurf(10));
-        frame.setStrike(true);
+        frame.getWuerfe().add(new Wurf(ersterWurf));
+        if (isSpare) {
+            frame.getWuerfe().add(new Wurf(3));
+        }
+        frame.setStrike(isStrike);
+        frame.setSpare(isSpare);
         frame.setComplete(true);
         spiel.getFrames().add(frame);
 
@@ -67,31 +79,7 @@ class ConsoleDisplayTest {
 
         // Then
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ausgabeText).contains("X");
+        softly.assertThat(ausgabeText).contains(erwarteteAnzeige);
         softly.assertAll();
     }
-
-    @Test
-    @DisplayName("Spare wird als / angezeigt")
-    void spare_wird_als_slash_angezeigt() {
-        // Given
-        Spiel spiel = new Spiel();
-        Frame frame = new Frame(1);
-        frame.getWuerfe().add(new Wurf(7));
-        frame.getWuerfe().add(new Wurf(3));
-        frame.setSpare(true);
-        frame.setComplete(true);
-        spiel.getFrames().add(frame);
-
-        // When
-        consoleDisplay.zeigeRaster(spiel);
-        String ausgabeText = ausgabe.toString();
-
-        // Then
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ausgabeText).contains("7");
-        softly.assertThat(ausgabeText).contains("/");
-        softly.assertAll();
-    }
-
 }

@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+/**
+ * Verantwortlich für die Konsoleneingabe des Bowling-Spiels.
+ * Liest Benutzereingaben, validiert diese und leitet sie an den {@link ScoringService} weiter.
+ */
 @Component
 public class ConsoleInput {
 
@@ -16,6 +20,13 @@ public class ConsoleInput {
     private final ScoringService scoringService;
     private final ConsoleDisplay consoleDisplay;
 
+    /**
+     * Erstellt eine neue Instanz von ConsoleInput.
+     *
+     * @param inputValidator  der Validator für Benutzereingaben
+     * @param scoringService  der Service für die Spiellogik
+     * @param consoleDisplay  die Anzeige für das Bowling-Raster
+     */
     public ConsoleInput(InputValidator inputValidator,
                         ScoringService scoringService,
                         ConsoleDisplay consoleDisplay) {
@@ -24,6 +35,10 @@ public class ConsoleInput {
         this.consoleDisplay = consoleDisplay;
     }
 
+    /**
+     * Startet das Bowling-Spiel in der Konsole.
+     * Läuft bis alle 10 Frames gespielt wurden.
+     */
     public void starteSpiel() {
         Scanner scanner = new Scanner(System.in);
         Spiel spiel = new Spiel();
@@ -35,13 +50,12 @@ public class ConsoleInput {
             System.out.print("Bitte Pins eingeben: ");
             String eingabe = scanner.nextLine();
 
-            // Aktuellen Frame holen
             Frame aktuellerFrame = spiel.getFrames().isEmpty()
-                ? null
-                : spiel.getFrames().get(spiel.getAktuellerFrame() - 1);
+                    ? null
+                    : spiel.getFrames().get(spiel.getAktuellerFrame() - 1);
 
             ValidiereErgebnis ergebnis =
-                inputValidator.validiereEingabe(eingabe, aktuellerFrame);
+                    inputValidator.validiereEingabe(eingabe, aktuellerFrame);
 
             if (!ergebnis.isGueltig()) {
                 System.out.println("Fehler: " + ergebnis.getFehlerMeldung());
@@ -53,11 +67,17 @@ public class ConsoleInput {
             consoleDisplay.zeigeRaster(spiel);
         }
 
-        System.out.println("Spiel beendet! Gesamtscore: "
-            + spiel.getGesamtScore());
+        System.out.println("Spiel beendet! Gesamtscore: " + spiel.getGesamtScore());
         scanner.close();
     }
 
+    /**
+     * Prüft ob das Spiel beendet ist.
+     * Das Spiel ist beendet wenn der zehnte Frame abgeschlossen ist.
+     *
+     * @param spiel das aktuelle Spiel
+     * @return true wenn das Spiel beendet ist
+     */
     private boolean istSpielBeendet(Spiel spiel) {
         if (spiel.getFrames().size() < 10) {
             return false;

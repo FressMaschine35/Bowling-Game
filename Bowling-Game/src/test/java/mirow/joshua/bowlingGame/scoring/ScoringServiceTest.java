@@ -1,13 +1,17 @@
 package mirow.joshua.bowlingGame.scoring;
 
-import org.assertj.core.api.SoftAssertions;
 import mirow.joshua.bowlingGame.game.Frame;
 import mirow.joshua.bowlingGame.game.Spiel;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class ScoringServiceTest {
+
+    private static final int STRIKE = 10;
 
     private ScoringService scoringService;
 
@@ -16,24 +20,25 @@ class ScoringServiceTest {
         scoringService = new ScoringServiceImpl();
     }
 
-    @Test
-    @DisplayName("Normaler Wurf mit 5 Pins - Score wird korrekt gesetzt")
-    void normaler_wurf_fuenf_pins() {
+    @ParameterizedTest(name = "Normaler Wurf mit {0} Pins - Score ist {0}")
+    @DisplayName("Normaler Wurf - Score wird korrekt gesetzt")
+    @CsvSource({"5, 5", "3, 3", "0, 0"})
+    void normaler_wurf(int pins, int erwarteterScore) {
         // Given
         Spiel spiel = new Spiel();
 
         // When
-        scoringService.verarbeiteWurf(spiel, 5);
+        scoringService.verarbeiteWurf(spiel, pins);
 
         // Then
         Frame frame = spiel.getFrames().getFirst();
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(frame.getWuerfe().size()).isEqualTo(1);
-        softly.assertThat(frame.getWuerfe().getFirst().pins()).isEqualTo(5);
+        softly.assertThat(frame.getWuerfe().getFirst().pins()).isEqualTo(pins);
         softly.assertThat(frame.isStrike()).isFalse();
         softly.assertThat(frame.isSpare()).isFalse();
-        softly.assertThat(frame.getScore()).isEqualTo(5);
+        softly.assertThat(frame.getScore()).isEqualTo(erwarteterScore);
         softly.assertAll();
     }
 
@@ -88,7 +93,7 @@ class ScoringServiceTest {
         Spiel spiel = new Spiel();
 
         // When
-        scoringService.verarbeiteWurf(spiel, 10); // Strike
+        scoringService.verarbeiteWurf(spiel, STRIKE);
         scoringService.verarbeiteWurf(spiel, 5);  // Bonus Wurf 1
         scoringService.verarbeiteWurf(spiel, 3);  // Bonus Wurf 2
 
@@ -110,10 +115,10 @@ class ScoringServiceTest {
         Spiel spiel = new Spiel();
 
         // When
-        scoringService.verarbeiteWurf(spiel, 10); // Strike Frame 1
-        scoringService.verarbeiteWurf(spiel, 10); // Strike Frame 2
-        scoringService.verarbeiteWurf(spiel, 5);  // Bonus Wurf
-        scoringService.verarbeiteWurf(spiel, 3);  // Normaler Wurf
+        scoringService.verarbeiteWurf(spiel, STRIKE); // Strike Frame 1
+        scoringService.verarbeiteWurf(spiel, STRIKE); // Strike Frame 2
+        scoringService.verarbeiteWurf(spiel, 5);      // Bonus Wurf
+        scoringService.verarbeiteWurf(spiel, 3);      // Normaler Wurf
 
         // Then
         Frame frame1 = spiel.getFrames().getFirst();
@@ -135,7 +140,7 @@ class ScoringServiceTest {
 
         // When - 12 Strikes
         for (int i = 0; i < 12; i++) {
-            scoringService.verarbeiteWurf(spiel, 10);
+            scoringService.verarbeiteWurf(spiel, STRIKE);
         }
 
         // Then
@@ -163,5 +168,4 @@ class ScoringServiceTest {
         softly.assertThat(scoreNachZweitemWurf).isEqualTo(8);
         softly.assertAll();
     }
-
 }

@@ -6,8 +6,14 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class InputValidatorTest {
+
+    private static final int ERSTER_WURF_PINS = 5;
 
     private InputValidator inputValidator;
 
@@ -16,138 +22,96 @@ class InputValidatorTest {
         inputValidator = new InputValidatorImpl();
     }
 
-    @Test
-    @DisplayName("Gueltige Eingabe - 5 Pins")
-    void gueltige_eingabe_fuenf_pins() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("5", null);
+    @ParameterizedTest(name = "Gueltige Eingabe - {0} Pins")
+    @DisplayName("Gueltige Eingaben - 0, 5 und 10 Pins")
+    @ValueSource(strings = {"0", "5", "10"})
+    void gueltige_eingaben(String eingabe) {
+        // When
+        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe(eingabe, null);
 
+        // Then
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(ergebnis.isGueltig()).isTrue();
         softly.assertThat(ergebnis.getFehlerMeldung()).isNull();
         softly.assertAll();
     }
 
-    @Test
-    @DisplayName("Gueltige Eingabe - 0 Pins")
-    void gueltige_eingabe_null_pins() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("0", null);
+    @ParameterizedTest(name = "Ungueltige Eingabe - {0} ist keine Zahl")
+    @DisplayName("Ungueltige Eingaben - Buchstaben und Emoji")
+    @ValueSource(strings = {"abc", "🎳"})
+    void ungueltige_eingabe_keine_zahl(String eingabe) {
+        // When
+        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe(eingabe, null);
 
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ergebnis.isGueltig()).isTrue();
-        softly.assertThat(ergebnis.getFehlerMeldung()).isNull();
-        softly.assertAll();
-    }
-
-    @Test
-    @DisplayName("Gueltige Eingabe - 10 Pins")
-    void gueltige_eingabe_zehn_pins() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("10", null);
-
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ergebnis.isGueltig()).isTrue();
-        softly.assertThat(ergebnis.getFehlerMeldung()).isNull();
-        softly.assertAll();
-    }
-
-    @Test
-    @DisplayName("Ungueltige Eingabe - Negative Zahl")
-    void ungueltige_eingabe_negative_zahl() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("-1", null);
-
+        // Then
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(ergebnis.isGueltig()).isFalse();
         softly.assertThat(ergebnis.getFehlerMeldung())
-            .isEqualTo("Pins dürfen nicht negativ sein");
+                .isEqualTo("Eingabe muss eine Zahl sein");
         softly.assertAll();
     }
 
-    @Test
-    @DisplayName("Ungueltige Eingabe - Mehr als 10 Pins")
-    void ungueltige_eingabe_mehr_als_zehn_pins() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("11", null);
+    @ParameterizedTest(name = "Ungueltige Eingabe - leer oder null")
+    @DisplayName("Ungueltige Eingaben - Leer und Null")
+    @NullAndEmptySource
+    void ungueltige_eingabe_leer_oder_null(String eingabe) {
+        // When
+        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe(eingabe, null);
 
+        // Then
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(ergebnis.isGueltig()).isFalse();
         softly.assertThat(ergebnis.getFehlerMeldung())
-            .isEqualTo("Maximale Pinanzahl ist 10");
+                .isEqualTo("Eingabe darf nicht leer sein");
         softly.assertAll();
     }
 
-    @Test
-    @DisplayName("Ungueltige Eingabe - Buchstaben")
-    void ungueltige_eingabe_buchstaben() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("abc", null);
+    @ParameterizedTest(name = "Ungueltige Eingabe - {0} Pins, Fehlermeldung: {1}")
+    @DisplayName("Ungueltige Eingaben - Negative Zahl und mehr als 10 Pins")
+    @CsvSource({
+        "-1, Pins dürfen nicht negativ sein",
+        "11, Maximale Pinanzahl ist 10"
+    })
+    void ungueltige_eingabe_ungueltige_pinanzahl(String eingabe, String erwarteteFehlerMeldung) {
+        // When
+        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe(eingabe, null);
 
+        // Then
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(ergebnis.isGueltig()).isFalse();
-        softly.assertThat(ergebnis.getFehlerMeldung())
-            .isEqualTo("Eingabe muss eine Zahl sein");
-        softly.assertAll();
-    }
-
-    @Test
-    @DisplayName("Ungueltige Eingabe - Emoji")
-    void ungueltige_eingabe_emoji() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("🎳", null);
-
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ergebnis.isGueltig()).isFalse();
-        softly.assertThat(ergebnis.getFehlerMeldung())
-            .isEqualTo("Eingabe muss eine Zahl sein");
-        softly.assertAll();
-    }
-
-    @Test
-    @DisplayName("Ungueltige Eingabe - Leer")
-    void ungueltige_eingabe_leer() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("", null);
-
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ergebnis.isGueltig()).isFalse();
-        softly.assertThat(ergebnis.getFehlerMeldung())
-            .isEqualTo("Eingabe darf nicht leer sein");
-        softly.assertAll();
-    }
-
-    @Test
-    @DisplayName("Ungueltige Eingabe - Null")
-    void ungueltige_eingabe_null() {
-        ValidiereErgebnis ergebnis = inputValidator.validiereEingabe(null, null);
-
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(ergebnis.isGueltig()).isFalse();
-        softly.assertThat(ergebnis.getFehlerMeldung())
-            .isEqualTo("Eingabe darf nicht leer sein");
+        softly.assertThat(ergebnis.getFehlerMeldung()).isEqualTo(erwarteteFehlerMeldung);
         softly.assertAll();
     }
 
     @Test
     @DisplayName("Ungueltige Eingabe - Summe ueber 10 im zweiten Wurf")
     void ungueltige_eingabe_summe_ueber_zehn() {
-        // Given - Erster Wurf war 5
+        // Given
         Frame frame = new Frame(1);
-        frame.getWuerfe().add(new Wurf(5));
+        frame.getWuerfe().add(new Wurf(ERSTER_WURF_PINS));
 
-        // When - Zweiter Wurf ist 6 - Summe 11
+        // When
         ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("6", frame);
 
+        // Then
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(ergebnis.isGueltig()).isFalse();
         softly.assertThat(ergebnis.getFehlerMeldung())
-            .isEqualTo("Summe der Pins darf nicht über 10 sein. Noch 5 Pins möglich");
+                .isEqualTo("Summe der Pins darf nicht über 10 sein. Noch 5 Pins möglich");
         softly.assertAll();
     }
 
     @Test
     @DisplayName("Gueltige Eingabe - Summe genau 10 im zweiten Wurf")
     void gueltige_eingabe_summe_genau_zehn() {
-        // Given - Erster Wurf war 5
+        // Given
         Frame frame = new Frame(1);
-        frame.getWuerfe().add(new Wurf(5));
+        frame.getWuerfe().add(new Wurf(ERSTER_WURF_PINS));
 
-        // When - Zweiter Wurf ist 5 - Spare
+        // When
         ValidiereErgebnis ergebnis = inputValidator.validiereEingabe("5", frame);
 
+        // Then
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(ergebnis.isGueltig()).isTrue();
         softly.assertThat(ergebnis.getFehlerMeldung()).isNull();
