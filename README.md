@@ -25,20 +25,58 @@ Wurf und nicht erst am Ende des Spiels.
 - 10ter Frame: Bei Strike oder Spare gibt es
   einen zusätzlichen Wurf
 
+## How to Run
+
+### Voraussetzungen
+- Java 21
+- Maven
+
+### Starten
+```bash
+mvn spring-boot:run
+```
+
+## Projektstruktur
+```
+src/main/java/mirow/joshua/bowlingGame/
+├── input/          # Validierung der Eingaben
+│   ├── InputValidator.java
+│   ├── InputValidatorImpl.java
+│   └── ValidiereErgebnis.java
+├── game/           # Spielobjekte
+│   ├── Spiel.java
+│   ├── Frame.java
+│   ├── ZehnterFrame.java
+│   └── Wurf.java
+├── scoring/        # Spiellogik und Berechnung
+│   ├── ScoringService.java
+│   ├── ScoringServiceImpl.java
+│   └── BonusStatus.java
+└── display/        # Konsolenaus- & Eingabe
+    ├── ConsoleDisplay.java
+    └── ConsoleInput.java
+```
+
+## Technologie Stack
+- Java 21
+- Spring Boot 3.4.4
+- JUnit 5
+- AssertJ
+
+## Testabdeckung
+| Modul | Getestet |
+|---|---|
+| InputValidator | Gültige und ungültige Eingaben, Summenprüfung |
+| ScoringService | Normaler Wurf, Spare, Strike, Perfect Game, Live Score |
+| ConsoleDisplay | Leeres Raster, Strike Anzeige, Spare Anzeige |
+
 ## Planung
+
 ### Architektur
-Modulith Ansatz – bewusst gewählt weil:
-- Kleines Projekt, kein Overhead durch Microservices
-- Module klar getrennt – Input, Game, Scoring, Display
-
-#### Warum Modulith?
-Bowling Center bieten oft verschiedene Spielvarianten an.
-Der Modulith Ansatz ermöglicht es einzelne Module
-unabhängig zu erweitern oder auszutauschen ohne
-andere Module zu beeinflussen.
-
-In Zukunft können einzelne Module bei Bedarf
-als eigenständige Services ausgelagert werden.
+Monolith – bewusst gewählt weil:
+- Kleines Projekt
+- Guter Überblick durch saubere Ordnerstruktur und
+  klare Trennung der Verantwortlichkeiten
 
 ### Zeitplanung (Soll)
 - 1 Stunde Planung
@@ -46,25 +84,26 @@ als eigenständige Services ausgelagert werden.
 - 1 Stunde Testing und Dokumentation
 
 ## Priorisierung
+
 ### Höher priorisiert
 - Korrekte Scoring Logik inkl. Strike und Spare Bonus
 - Live Berechnung nach jedem Wurf
 - Eingabevalidierung mit klaren Fehlermeldungen
 - Testabdeckung – Scoring, Validierung und Ausgabe
-- Saubere Modulstruktur für spätere Erweiterbarkeit
+- Saubere Struktur für spätere Erweiterbarkeit
 
 ### Bewusst weggelassen
-- Persistenz – Spielstand wird nur im Speicher gehalten
+- Persistenz – Spielstand wird nur im Speicher gehalten.
   In Zukunft könnte PostgreSQL oder MongoDB genutzt werden
 - Mehrere Spieler
 - Frontend – Angular wäre der nächste Schritt
-- REST API – Input Modul kann dafür umgebaut werden
+- REST API – Input Paket kann dafür umgebaut werden
 
 ## Nächste Schritte (Theoretisch)
-- REST API im Input Modul hinzufügen
+- REST API hinzufügen
 - Angular Frontend anbinden
 - Mehrere Spieler unterstützen
-- Neue Spielmodi hinzufügen (Bis jetzt nur das StandardSpiel drinnen)
+- Neue Spielmodi hinzufügen
 
 ## Verwendete Tools
 - IntelliJ IDEA
