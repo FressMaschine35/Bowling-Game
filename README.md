@@ -148,8 +148,8 @@ im ScoringService.
 
 ### REST-API
 Da kein Frontend existiert macht eine REST-API aktuell
-keinen Sinn. Bei Bedarf könnten Controller direkt im
-`input` Ordner hinzugefügt werden.
+keinen Sinn. Bei Bedarf könnte ein Ordner hinzugefügt werden, für die Controller, 
+welche dann die Validierung nutzten, können. 
 
 ### Gemeinsame Konstanten
 Es wurde kein zentraler Ordner für gemeinsame Konstanten
