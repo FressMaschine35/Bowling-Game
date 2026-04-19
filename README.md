@@ -170,14 +170,14 @@ Zentralisierung wäre over-engineering.
 Die Tests haben keine Generatoren um Testdaten schnell
 zu erstellen. Zum aktuellen Zeitpunkt ist die Anzahl
 der benötigten Objekte noch so gering, dass Generatoren
-keinen Mehrwert bringen. Bei wachsender Komplexität
+keinen enormen Mehrwert bringen. Bei wachsender Komplexität
 der Anwendung sollte das ergänzt werden.
 
 ### Validierung gegen Angriffe
 Eine konkrete Validierung gegen Datenmanipulation oder
 Angriffe wurde aufgrund des Use Cases und Umfangs nicht
 implementiert. In der Realität sollte man Eingaben
-entgegennehmen, sanitizen, validieren und erst dann
+entgegennehmen, sanitization, validieren und erst dann
 verarbeiten.
 
 ## Nächste Schritte
