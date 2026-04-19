@@ -76,6 +76,13 @@ manuelle Ausführung der pragmatische Weg.
 
 ## Planung
 
+### Zeitplanung
+
+- Planung: 30 Min.
+- Implementierung: 2 Std. 30 Min.
+- Testen: 30 Min.
+- Dokumentation: 30 Min.
+
 ### Architektur
 Monolith – bewusst gewählt, weil es sich um ein kleines
 Projekt handelt. Eine gute Ordnerstruktur mit klarer
