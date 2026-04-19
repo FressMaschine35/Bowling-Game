@@ -186,4 +186,4 @@ verarbeiten.
 - IntelliJ IDEA
 - Spring Boot
 - JUnit 5 + AssertJ
-- Claude AI – für Sparring und Code Review
+- Claude AI – für Sparring
