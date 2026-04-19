@@ -1,7 +1,7 @@
-package mirow.joshua.bowlingGame.input;
+package mirow.joshua.bowlingGame.validation;
 
-import mirow.joshua.bowlingGame.game.Frame;
-import mirow.joshua.bowlingGame.game.Wurf;
+import mirow.joshua.bowlingGame.spiel.Frame;
+import mirow.joshua.bowlingGame.spiel.Wurf;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

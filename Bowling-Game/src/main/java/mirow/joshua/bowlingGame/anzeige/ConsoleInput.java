@@ -1,10 +1,10 @@
-package mirow.joshua.bowlingGame.display;
+package mirow.joshua.bowlingGame.anzeige;
 
-import mirow.joshua.bowlingGame.game.Frame;
-import mirow.joshua.bowlingGame.game.Spiel;
-import mirow.joshua.bowlingGame.input.InputValidator;
-import mirow.joshua.bowlingGame.input.ValidiereErgebnis;
-import mirow.joshua.bowlingGame.scoring.ScoringService;
+import mirow.joshua.bowlingGame.spiel.Frame;
+import mirow.joshua.bowlingGame.spiel.Spiel;
+import mirow.joshua.bowlingGame.validation.InputValidator;
+import mirow.joshua.bowlingGame.validation.ValidiereErgebnis;
+import mirow.joshua.bowlingGame.berechnung.ScoringService;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package mirow.joshua.bowlingGame.game;
+package mirow.joshua.bowlingGame.spiel;
 
 import java.util.ArrayList;
 import java.util.List;

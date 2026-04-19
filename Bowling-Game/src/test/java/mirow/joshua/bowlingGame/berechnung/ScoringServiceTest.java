@@ -1,7 +1,8 @@
-package mirow.joshua.bowlingGame.scoring;
+package mirow.joshua.bowlingGame.berechnung;
 
-import mirow.joshua.bowlingGame.game.Frame;
-import mirow.joshua.bowlingGame.game.Spiel;
+
+import mirow.joshua.bowlingGame.spiel.Frame;
+import mirow.joshua.bowlingGame.spiel.Spiel;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,9 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class ScoringServiceTest {
 
     private static final int STRIKE = 10;
+    private static final int NORMALE_PINS = 3;
 
     private ScoringService scoringService;
 
@@ -167,5 +171,91 @@ class ScoringServiceTest {
         softly.assertThat(scoreNachErstemWurf).isEqualTo(5);
         softly.assertThat(scoreNachZweitemWurf).isEqualTo(8);
         softly.assertAll();
+    }
+
+    @Test
+    @DisplayName("Zehnter Frame - Spare mit Bonuswurf")
+    void zehnter_frame_spare_mit_bonuswurf() {
+        // Given
+        Spiel spiel = new Spiel();
+
+        // When - 9 normale Frames
+        for (int i = 0; i < 9; i++) {
+            scoringService.verarbeiteWurf(spiel, NORMALE_PINS);
+            scoringService.verarbeiteWurf(spiel, NORMALE_PINS);
+        }
+        // Zehnter Frame - Spare + Bonuswurf
+        scoringService.verarbeiteWurf(spiel, 7);
+        scoringService.verarbeiteWurf(spiel, 3);
+        scoringService.verarbeiteWurf(spiel, 5);
+
+        // Then
+        Frame zehnterFrame = spiel.getFrames().get(9);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(zehnterFrame.isSpare()).isTrue();
+        softly.assertThat(zehnterFrame.isComplete()).isTrue();
+        softly.assertThat(zehnterFrame.getScore()).isEqualTo(15);
+        softly.assertAll();
+    }
+
+    @Test
+    @DisplayName("Zehnter Frame - Kein Strike kein Spare direkt complete")
+    void zehnter_frame_kein_strike_kein_spare() {
+        // Given
+        Spiel spiel = new Spiel();
+
+        // When - 9 normale Frames
+        for (int i = 0; i < 9; i++) {
+            scoringService.verarbeiteWurf(spiel, NORMALE_PINS);
+            scoringService.verarbeiteWurf(spiel, NORMALE_PINS);
+        }
+        // Zehnter Frame - kein Strike kein Spare
+        scoringService.verarbeiteWurf(spiel, 3);
+        scoringService.verarbeiteWurf(spiel, 4);
+
+        // Then
+        Frame zehnterFrame = spiel.getFrames().get(9);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(zehnterFrame.isStrike()).isFalse();
+        softly.assertThat(zehnterFrame.isSpare()).isFalse();
+        softly.assertThat(zehnterFrame.isComplete()).isTrue();
+        softly.assertThat(zehnterFrame.getScore()).isEqualTo(7);
+        softly.assertAll();
+    }
+
+    @Test
+    @DisplayName("Zehnter Frame - Strike dann normale Wuerfe")
+    void zehnter_frame_strike_dann_normale_wuerfe() {
+        // Given
+        Spiel spiel = new Spiel();
+
+        // When - 9 normale Frames
+        for (int i = 0; i < 9; i++) {
+            scoringService.verarbeiteWurf(spiel, NORMALE_PINS);
+            scoringService.verarbeiteWurf(spiel, NORMALE_PINS);
+        }
+        // Zehnter Frame - Strike + 2 normale Würfe
+        scoringService.verarbeiteWurf(spiel, STRIKE);
+        scoringService.verarbeiteWurf(spiel, 5);
+        scoringService.verarbeiteWurf(spiel, 3);
+
+        // Then
+        Frame zehnterFrame = spiel.getFrames().get(9);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(zehnterFrame.isStrike()).isTrue();
+        softly.assertThat(zehnterFrame.isComplete()).isTrue();
+        softly.assertThat(zehnterFrame.getScore()).isEqualTo(18);
+        softly.assertAll();
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException wenn Spiel null ist")
+    void exception_wenn_spiel_null() {
+        // When / Then
+        assertThrows(IllegalArgumentException.class, () ->
+                scoringService.verarbeiteWurf(null, 5));
     }
 }

@@ -1,6 +1,6 @@
-package mirow.joshua.bowlingGame.input;
+package mirow.joshua.bowlingGame.validation;
 
-import mirow.joshua.bowlingGame.game.Frame;
+import mirow.joshua.bowlingGame.spiel.Frame;
 import org.springframework.stereotype.Component;
 
 /**

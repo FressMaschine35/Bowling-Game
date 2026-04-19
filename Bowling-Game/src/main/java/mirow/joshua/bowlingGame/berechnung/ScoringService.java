@@ -1,6 +1,6 @@
-package mirow.joshua.bowlingGame.scoring;
+package mirow.joshua.bowlingGame.berechnung;
 
-import mirow.joshua.bowlingGame.game.Spiel;
+import mirow.joshua.bowlingGame.spiel.Spiel;
 import org.springframework.stereotype.Service;
 
 @Service

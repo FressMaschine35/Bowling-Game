@@ -1,6 +1,6 @@
 package mirow.joshua.bowlingGame;
 
-import mirow.joshua.bowlingGame.display.ConsoleInput;
+import mirow.joshua.bowlingGame.anzeige.ConsoleInput;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;

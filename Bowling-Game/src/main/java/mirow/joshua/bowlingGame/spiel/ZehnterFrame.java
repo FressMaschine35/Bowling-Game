@@ -1,4 +1,4 @@
-package mirow.joshua.bowlingGame.game;
+package mirow.joshua.bowlingGame.spiel;
 
 
 public class ZehnterFrame extends Frame{

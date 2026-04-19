@@ -1,4 +1,4 @@
-package mirow.joshua.bowlingGame.input;
+package mirow.joshua.bowlingGame.validation;
 
 /**
  * Ergebnis der Eingabevalidierung.

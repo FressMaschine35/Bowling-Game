@@ -1,4 +1,4 @@
-package mirow.joshua.bowlingGame.scoring;
+package mirow.joshua.bowlingGame.berechnung;
 
 public enum BonusStatus {
 

@@ -1,6 +1,6 @@
-package mirow.joshua.bowlingGame.game;
+package mirow.joshua.bowlingGame.spiel;
 
-import mirow.joshua.bowlingGame.scoring.BonusStatus;
+import mirow.joshua.bowlingGame.berechnung.BonusStatus;
 
 import java.util.ArrayList;
 import java.util.List;

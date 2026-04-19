@@ -1,8 +1,8 @@
-package mirow.joshua.bowlingGame.display;
+package mirow.joshua.bowlingGame.anzeige;
 
-import mirow.joshua.bowlingGame.game.Frame;
-import mirow.joshua.bowlingGame.game.Spiel;
-import mirow.joshua.bowlingGame.game.Wurf;
+import mirow.joshua.bowlingGame.spiel.Frame;
+import mirow.joshua.bowlingGame.spiel.Spiel;
+import mirow.joshua.bowlingGame.spiel.Wurf;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

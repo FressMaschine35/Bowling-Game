@@ -1,9 +1,9 @@
-package mirow.joshua.bowlingGame.scoring;
+package mirow.joshua.bowlingGame.berechnung;
 
-import mirow.joshua.bowlingGame.game.Frame;
-import mirow.joshua.bowlingGame.game.Spiel;
-import mirow.joshua.bowlingGame.game.Wurf;
-import mirow.joshua.bowlingGame.game.ZehnterFrame;
+import mirow.joshua.bowlingGame.spiel.Frame;
+import mirow.joshua.bowlingGame.spiel.Spiel;
+import mirow.joshua.bowlingGame.spiel.Wurf;
+import mirow.joshua.bowlingGame.spiel.ZehnterFrame;
 import org.springframework.stereotype.Component;
 
 /**
@@ -174,7 +174,7 @@ public class ScoringServiceImpl implements ScoringService {
     }
 
     /**
-     * Prüft ob der Frame ein Strike ist.
+     * Prüft, ob der Frame ein Strike ist.
      *
      * @param frame der zu prüfende Frame
      * @return true wenn Strike
@@ -185,7 +185,7 @@ public class ScoringServiceImpl implements ScoringService {
     }
 
     /**
-     * Prüft ob der Frame ein Spare ist.
+     * Prüft, ob der Frame ein Spare ist.
      *
      * @param frame der zu prüfende Frame
      * @return true wenn Spare
