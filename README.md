@@ -77,7 +77,7 @@ manuelle Ausführung der pragmatische Weg.
 ## Planung
 
 ### Architektur
-Monolith – bewusst gewählt weil es sich um ein kleines
+Monolith – bewusst gewählt, weil es sich um ein kleines
 Projekt handelt. Eine gute Ordnerstruktur mit klarer
 Trennung der Verantwortlichkeiten gibt ausreichend
 Überblick ohne unnötigen Overhead.
@@ -90,22 +90,22 @@ sein – auch wenn die Aufgabe sagt es muss nicht perfekt
 sein. Egal ob Test oder echte Anwendung, diese Standards
 sollten niemals unterschlagen werden.
 
-Das Live Scoring war ausdrücklich gewünscht und macht
+Das live Scoring war ausdrücklich gewünscht und macht
 in diesem Use Case Sinn – der Spieler soll nach jedem
 Wurf den aktuellen Stand sehen.
 
 ### 2. Tests
-Wer nicht testet rät – und darf Fehler später ausbaden.
+Wer nicht testet, rät – und darf Fehler später ausbaden.
 
 Tests sind besonders wichtig in der Teamarbeit. Wenn
 man einen neuen Branch erstellt, sollte der erste Schritt
-sein die Tests auszuführen. Das stellt sicher dass die
+sein die Tests auszuführen. Das stellt sicher, dass die
 Anwendung funktioniert oder zeigt Probleme die
 adressiert werden müssen.
 
 ### 3. Dokumentation
 JavaDoc ist Standard. Ja, es gibt Entwickler die sagen
-"was wenn sich was ändert" – dann passt man die Doku an.
+"was, wenn sich was ändert" – dann passt man die Doku an.
 
 Teams die zusammenarbeiten sollten nicht raten müssen
 was eine Methode tut. Die JavaDoc Kommentierung macht
@@ -124,13 +124,13 @@ zurückgegeben – je nach Größe der Eingabefelder.
 
 ### 5. Validierung
 Validierung wird in der Praxis leider häufig vernachlässigt –
-egal ob Frontend oder Backend. Das führt zu Problemen die
+egal ob Frontend oder Backend. Das führt zu Problemen, die
 schwer zu verstehen sind, besonders bei Edge Cases. Der
-Anwender versteht dann nicht warum es zu Fehlern kam und
+Anwender versteht dann nicht, warum es zu Fehlern kam und
 Entwickler haben Schwierigkeiten die Ursache einzugrenzen.
 
 Deshalb wurde die Validierung bewusst implementiert –
-mit klaren Fehlermeldungen die dem Nutzer direkt sagen
+mit klaren Fehlermeldungen, die dem Nutzer direkt sagen
 was falsch war.
 
 ### 6. SonarQube
@@ -162,7 +162,7 @@ Zentralisierung wäre over-engineering.
 ### Test Data Generatoren
 Die Tests haben keine Generatoren um Testdaten schnell
 zu erstellen. Zum aktuellen Zeitpunkt ist die Anzahl
-der benötigten Objekte noch so gering dass Generatoren
+der benötigten Objekte noch so gering, dass Generatoren
 keinen Mehrwert bringen. Bei wachsender Komplexität
 der Anwendung sollte das ergänzt werden.
 
